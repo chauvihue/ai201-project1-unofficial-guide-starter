@@ -167,6 +167,8 @@ flowchart TD
 I'm going to use Claude Code. For each milestone, the API will read the entirety of planning.md, only implementing the functionality of the milestone while keep in mind the context of the project. 
 
 **Milestone 3 — Ingestion and chunking:**
+Detailed implementation brief: see `MILESTONE3_PROMPT.md` (operationalizes this spec for the coding agent).
+
 I'm going to ask Claude to code most of the data extraction process, since I don't have much knowledge about that. When the data is in pure JSON, or .txt files, I'm going to check the quality of the web scrape by seeing if users/profs' comments/reviews are there. I'm expecting the agent will produce a MVP with test data in the beginning, since the scraping pipeline might have to fall back in the first few iterations. 
 
 For chunking, I'm going to ask Claude to implement the recursive_chunk() method, and I'll verify its outputs later.
