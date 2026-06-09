@@ -10,6 +10,9 @@
 ## Domain
 
 <!-- What domain did you choose? Why is this knowledge valuable and hard to find through official channels? -->
+My domain is Computer Science course selections: what classes to choose for lower electives and such ($\le 300$ level).
+
+As a freshman, I find that asking advisors about which electives to take isn't effecient and useful, since they haven't taken the course yet. There are studnet Peer Advisors, but sometimes you just want a broader view of the general opinion of electives in the recent years. Extracting and combining information directly from Course Descriptions, Reddit and Rate My Professor, we can deploy a RAG system that receives well-rounded, grounded information.
 
 ---
 
@@ -20,17 +23,34 @@
 
 | # | Source | Description | URL or location |
 |---|--------|-------------|-----------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
-| 9 | | | |
-| 10 | | | |
-
+| 1 | Reddit| Easy 200+ CS Courses |https://www.reddit.com/r/umass/comments/1ot0yto/easy_200_cs_courses/ |
+| 2 | Reddit| Course recommendations MS CS |https://www.reddit.com/r/umass/comments/1da5coi/course_recommendations_ms_cs/ |
+| 3 | Reddit| Thoughts on certain grad level CS classes |https://www.reddit.com/r/umass/comments/1aojcc8/thoughts_on_certain_grad_level_cs_classes/ |
+| 4 | Reddit| Fall 24 CS Grad Course |https://www.reddit.com/r/umass/comments/1bymlyw/fall_24_cs_grad_course/ |
+| 5 | Reddit| Easy CS electives |https://www.reddit.com/r/umass/comments/sdcne1/easy_cs_electives/ |
+| 6 | Reddit| Easiest cs 400+/500+ courses.... |https://www.reddit.com/r/umass/comments/qubmte/easiest_cs_400500_courses/ |
+| 7 | Reddit| CS courseload advice, 300s and 400s|https://www.reddit.com/r/umass/comments/patv3a/cs_courseload_advice/ |
+| 8 | Reddit| Freshman CS Major, Second Semester Classes? |https://www.reddit.com/r/umass/comments/jdppi6/freshman_cs_major_second_semester_classes/|
+| 9 | Rate My Professor | James Perretta | https://www.ratemyprofessors.com/professor/3114707 |
+| 10 | Rate My Professor | Ella Tuson | https://www.ratemyprofessors.com/professor/3127793 |
+| 11 | Rate My Professor | Marc Liberatore
+ | https://www.ratemyprofessors.com/professor/1948400 |
+| 12 | Rate My Professor | Phuthipong Bovornkeeratiroj
+ | https://www.ratemyprofessors.com/professor/2992114 |
+| 13 | Rate My Professor | Ghazaleh Parvini | https://www.ratemyprofessors.com/professor/2624866 |
+| 14 | Rate My Professor | Justin Domke
+ | https://www.ratemyprofessors.com/professor/2290260 |
+| 15 | Rate My Professor | Marius Minea
+ | https://www.ratemyprofessors.com/professor/2416008
+| 16 | Rate My Professor | Cole Reilly | https://www.ratemyprofessors.com/professor/2912301 |
+| 17 | Rate My Professor | Joe Chiu | https://www.ratemyprofessors.com/professor/2420066 |
+| 18 | Rate My Professor | Mordecai Golin | https://www.ratemyprofessors.com/professor/2940693 |
+| 19 | Local Repo | Spring 2026 Course Description | documents/s26_course_description  |
+| 20 | Local Repo | Spring 2026 Course Schedule | documents/s26_course_schedule |
+| 21 | Local Repo | Spring 2026 Eligibility/Prereq. Registration Info | documents/s26_reg_info |
+| 22 | Local Repo | Fall 2026 Course Description | documents/f26_course_description |
+| 23 | Local Repo | Fall 2026 Course Schedule |  | documents/f26_course_schedule |
+| 24 | Local Repo | Fall 2026 Eligibility/Prereq. Registration Info | documents/f26_reg_info |
 ---
 
 ## Chunking Strategy
@@ -40,11 +60,11 @@
      numbers fit the structure of your documents.
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
-**Chunk size:**
+**Chunk size:** Let's try 1000 characters for now
 
-**Overlap:**
+**Overlap:** Let's say 500 characters
 
-**Reasoning:**
+**Reasoning:** Course descriptions can be long, so we need bigger chunks. While information may not be dense
 
 ---
 
