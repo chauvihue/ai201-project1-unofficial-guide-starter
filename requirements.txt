@@ -3,9 +3,13 @@ chromadb>=0.6.0
 groq==0.15.0
 python-dotenv==1.0.1
 
+# Milestone 3 — ingestion and chunking
+praw>=7.8.0
+ratemyprofessors-client>=3.0.0
+pdfplumber>=0.11.4
+langchain-text-splitters>=1.0.0
+requests>=2.31.0
+
 # Query interface — add whichever you use for Milestone 5:
 # gradio>=6.9.0
 # streamlit>=1.40.0
-
-# Document ingestion — add if your documents/ folder contains .pdf files:
-# pdfplumber==0.11.4
