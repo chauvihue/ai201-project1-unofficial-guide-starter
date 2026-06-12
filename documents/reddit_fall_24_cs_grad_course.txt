@@ -1,0 +1,54 @@
+[Thread: Fall 24 CS Grad Course | r/umass]
+
+[Post | score: OP | depth: 0]
+Hi all,
+
+I am choosing courses for the upcoming semester (Fall 24). There are not many options, and classes I am interested in are either not available or I am afraid I wouldn't do well. I was wondering if there are any recommended courses that I should take.
+
+I have already taken: CS 560, CS 576, CS 589, CS 651, CS 670, CS 690k
+
+I am interested in taking: CS 603, CS 683, CS 687, other AI-related courses
+
+[Comment | score: 3 | depth: 0]
+[Replying to: Hi all, I am choosing courses for the upcoming semester (Fall 24). There are not many options, and c...]
+CS689 is ML so if you want to take AI related course, you should take 689.
+
+[Comment | score: 2 | depth: 1]
+[Replying to: CS689 is ML so if you want to take AI related course, you should take 689.]
+I believe only one counts for 589 and 689 is that correct? If it is, I’ve already taken 589, should I still take 689?
+
+[Comment | score: 2 | depth: 0]
+[Replying to: Hi all, I am choosing courses for the upcoming semester (Fall 24). There are not many options, and c...]
+CS 682 intro to neural networks
+
+[Comment | score: 2 | depth: 0]
+[Replying to: Hi all, I am choosing courses for the upcoming semester (Fall 24). There are not many options, and c...]
+I don't think 683 is being offered. If you liked 589 with Bruno, you should go for 687. You can also consider 646 but it's not being taught by prof Zamani so I am not really sure about that. 646 is related to NLP btw. You can also look at 682 or 688.
+
+[Comment | score: 1 | depth: 1]
+[Replying to: I don't think 683 is being offered. If you liked 589 with Bruno, you should go for 687. You can also...]
+How’s Zamani ? I’m planning to take 646 but I don’t see a lot of reviews about the prof
+
+[Comment | score: 1 | depth: 2]
+[Replying to: How’s Zamani ? I’m planning to take 646 but I don’t see a lot of reviews about the prof]
+I feel his lectures are not that organized but he covers a lot of topics in his courses which is a little hard to keep up for someone who is new to ML. He bombards you with knowledge which is upto you whether you want to take it or leave.
+
+[Comment | score: 1 | depth: 3]
+[Replying to: I feel his lectures are not that organized but he covers a lot of topics in his courses which is a l...]
+Thanks. This helps !
+
+[Comment | score: 1 | depth: 0]
+[Replying to: Hi all, I am choosing courses for the upcoming semester (Fall 24). There are not many options, and c...]
+I’m sorry I can’t answer your question, I’m a poor Junior, but could you talk about your personal experience with the grad courses you’ve already taken pls 🤞
+
+[Comment | score: 2 | depth: 1]
+[Replying to: I’m sorry I can’t answer your question, I’m a poor Junior, but could you talk about your personal ex...]
+So far the best I’ve taken is cs589 with Bruno Castro da Silva. His courses are super to the point and easy to understand. If you are interested in the other one you could comment the course number, but I’d say none of them are as good as this one.
+
+[Comment | score: 1 | depth: 0]
+[Replying to: Hi all, I am choosing courses for the upcoming semester (Fall 24). There are not many options, and c...]
+Hey, I wanted to know more about CS 651, how would you compare it to 514/611, would you consider it a hard course?
+
+[Comment | score: 1 | depth: 1]
+[Replying to: Hey, I wanted to know more about CS 651, how would you compare it to 514/611, would you consider it...]
+tbh i never took the courses you mentioned. 651 is quite hard, but you have a lot of chance to earn extra points, and as long as you study the slides and past exams you will do fine on the midterm. Just plan out on how you want to earn your points and focus on that path then you should be alright.

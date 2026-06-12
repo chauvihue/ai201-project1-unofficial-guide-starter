@@ -1,0 +1,101 @@
+[Rate My Professor: Justin Domke | University of Massachusetts - Amherst]
+
+[Class: COMPSCI589 | rating: 1.0 | 2026-04-18]
+Disrespectful and discouraging
+
+[Class: COMPSCI689 | rating: 5.0 | 2025-12-25]
+If you truly want to learn something during grad school, take 689 with this prof. Both the lecture and the homework content were amazing. 689 is definitely going to take significant effort, and it assumes that you cover the necessary basics. However, the delivery of this challenging content was pretty good (provided you know your basics).
+
+[Class: CS589 | rating: 3.0 | 2025-01-06]
+Transitioned to a fully online project-based course which helped to focus on core concepts and learning as opposed to exams and quizzes. One TA didn't explain concepts clearly, provided a confusing analogy, and when asked to clarify his explanation: "Sorry, I won't give you the answer. You'll have to figure out the solution for yourself."
+
+[Class: CS589 | rating: 2.0 | 2024-12-13]
+Forced students to use his own library, whose syntax and usage weren't clearly explained. One of the TAs was really bad, made you feel dumb, and never told you if your solution was correct. I learned a lot, but I ended up spending significantly more time on this course than you typically would for a 3 credit one.
+
+[Class: CS589 | rating: 2.0 | 2024-11-20]
+Only take this class if you're very comfortable with statistics and math. I can't emphasize that enough. Also be good at linear algebra and calculus. I'm very well versed in those fields but I can see why others are struggling and I would also personally struggle if I didn't know statistics well
+
+HWs are easy if you know the math. Otherwise, avoid
+
+[Class: COMPSCI589 | rating: 1.0 | 2024-10-29]
+Made this easy subject insanely difficult for no reason. Great TA, did most if not all of the work for the course. Absolutely unsympathetic to having deadlines extended. Assignments that take tens of hours that need to be completed within deadline or else its all for waste.
+
+[Class: CS589 | rating: 5.0 | 2024-10-15]
+People will praise Tim Richards for not giving exams, but when Domke does the same thing but actually makes the assignments require the tiniest bit of effort, they'll scream bloody murder. Not to mention, Pangolin is 10x easier to use than base NumPyro. Be grateful. Your real issue is ChatGPT didn't see Pangolin in its training data.
+
+[Class: CS589 | rating: 3.0 | 2024-10-11]
+I like how the course is structured and what materials are covered. However, the assignments often require knowledge not covered or partially covered in the lectures, which makes them time-consuming and sometimes too difficult as you have to learn it yourself. Yes, you learn a lot through the process, but the assignments are 100% of your grade...
+
+[Class: CS589 | rating: 3.0 | 2024-10-10]
+People are just mad that they actually have to learn because he created his own package and can't use chatgpt. Lectures don't cover enough content though
+
+[Class: CS589 | rating: 1.0 | 2024-10-09]
+Contrary to some beliefs - not a skill issue if the course is shambolic. Course staff is very condescending and never make you feel welcome. The instructor is heavily not involved. Questions on the homeworks (which account for all the grade) are dealt with as comments on his Notion page, or office hours with the TA which are full of snappy remarks.
+
+[Class: CS589 | rating: 5.0 | 2024-10-06]
+Skill issue if you don't like him. Just adapt not that difficult.
+
+[Class: CS589 | rating: 1.0 | 2024-09-30]
+No in-person/zoom lectures at all. He uploades his online videos instead. I never felt like I'm not learning anything to this extent. And I spend a lot of time to do hw.
+
+We're supposed to learn from office hours which are held by TA's and not him. If I ask a question about my code, I get vague answers instead of a help to find my error.
+
+[Class: CS589 | rating: 1.0 | 2024-09-16]
+Forces his students to use the python library he developed in the homeworks, which means we have to learn it. Skims over content expecting students to know it. Not very inspirational. I don't like being a hater but take a different professor
+
+[Class: CS589 | rating: 2.0 | 2024-01-02]
+he's a great lecturer and i did learn a lot of ml from him. i do have a feeling that he gave people random grades though. really shady grading policy and never gave back final exams. a lot harder than other professors who teach the same course. would avoid him if possible.
+
+[Class: CS589 | rating: 1.0 | 2022-12-30]
+My biggest concern with this instructor is that, unlike most educators I have encountered, he displays utter disregard for his students and their learning experience. Beyond delivering the scheduled lectures which stimulate little participation, he is removed from the learning process and provides no feedback on assignments. Quite disappointed.
+
+[Class: COMPSCI589 | rating: 1.0 | 2022-12-28]
+One of the worst professors you can take a course under. Never gives any practice problems to learn things. Assignments are not enough for what he asks in the exams. The grading is unfair. The professor keeps telling he cares about students but doesn't even want to share correct solutions of the quizzes so that they can learn from their mistakes.
+
+[Class: CS589 | rating: 5.0 | 2021-12-08]
+He's a great prof who gives quality assignments and really makes you think conceptually. His ML course is out of this world!
+
+[Class: CS589 | rating: 3.0 | 2021-07-13]
+Good lecturer with interesting materials, but it was a bit hard to deal with him as a person. He (and TAs) grades only based on your answers and don't give any helpful feedback. HW sets were more like sklearn practice sheets. Lectures were helpful but not very much. I would take his course again but would avoid it if I can.
+
+[Class: COMPSCI589 | rating: 1.0 | 2021-05-18]
+First of all, we had 6 homework assignments and 4 quizzes. The homework assignments took tens of hours to complete, but the 20 minute quizzes we did throughout the semester were worth, individually, MORE THAN the assignments. It's simply unfair to grade people in such a way. Course was completely disorganized, to the point that it was ridiculous.
+
+[Class: CS589 | rating: 1.0 | 2021-05-07]
+Professor Domke doesn't have a Piazza for this course so asking for questions becomes difficult. There are too many quizzes and assignments and at least 2-3 questions in each assignment will not make sense at all. Grading is very harsh. The course material is good so I'd suggest you take this if someone else is taking the course.
+
+[Class: CS589 | rating: 1.0 | 2020-05-18]
+Decent lecturer, homeworks were needlessly long and unclear, generally does not care about his students. The guy literally made piazza inactive as we were taking the final exam - most likely because he didn't want students to be able to give negative feedback about the handling of the class in an organized fashion. Did not handle COVID-19 well.
+
+[Class: CS68 | rating: 2.0 | 2020-05-14]
+Short syllabus, great lecture notes, he knows his field cold. Logistical nightmares - no final exam scores released, intentional withholding of all solutions to HW/exams, completely inaccessible outside of class, dismissive and disrespectful to students who ask questions, handwavy about answers. Good topic, but would never work with him.
+
+[Class: CS589 | rating: 1.0 | 2020-05-13]
+Wow, this guy has absolutely no respect for his students. No correct answers were given all semester (no solutions of any kind) and talking about homework assignments even past the due date is banned. He blatantly violates academic policy and only rectifies it on a student-by-student basis when directly confronted. Do not take this class to learn.
+
+[Class: CS688 | rating: 1.0 | 2020-05-13]
+No syllabus/calendar provided. The instructor treats students with unwarranted inflexibility (even in Spring 2020) and disrespect (sometimes laughs at students' questions). Actively delayed final grading to prevent students from checking final grade in time to opt for Covid-19 Pass/Fail option. Just horrible to interact with.
+
+[Class: CS688 | rating: 1.0 | 2020-05-13]
+Their grading policy was the "student will be evaluated on their final answer", meaning you will only get credit if your final answer is correct no matter whether your procedure is right or wrong. In other words, they are too lazy and unorganized to go through your answer sheet. The class was a big mess on a syllabus which is relatively small.
+
+[Class: CS589 | rating: 3.0 | 2020-05-13]
+Easy class. Homeworks have bad document styles, hard to notice what should be reported on the final submission. Review some matrix operations + matrix calculus then this class should be easy.
+
+[Class: COMPSCI589 | rating: 1.0 | 2020-05-02]
+He tries to create this sense of inferiority around him about being extremely inflexible (and yes, even in Spring 2020). We were literally wrapping up a topic on which our entire homework was based 3 days before the deadline (and yes, it was a fairly heavy assignment). Contrary to others, he covered no practical examples on the topics being taught.
+
+[Class: CS589 | rating: 1.0 | 2020-04-29]
+Class wasn't bad in the start of the semester, but Domke made it clear that it would be difficult. Which is fine. But his TAs were utterly horrible, and getting feedback for homework took MONTHS. I have no clue how I'm doing on the last day of the semester. Shows no consideration for students during pandemic and no desire to make things any easier.
+
+[Class: COMPSCI589 | rating: 1.0 | 2020-04-29]
+Assignments (made by TAs) basically have nothing to do with his lectures which are long and formula heavy. Never goes back to clarify what variables and symbols mean. Final exam has no partial credit despite the, by his own description, open ended nature of the questions. He gets irritated by students who are behind and ask "dumb" questions.
+
+[Class: CS589 | rating: 5.0 | 2019-05-17]
+great lecturer. very clear about each topic. he will try his best to help you understand the materials. exam is pretty easy.
+
+[Class: CS589 | rating: 4.0 | 2019-02-27]
+Awesome professor! Explains things very clearly and keeps the content interesting. Very good at explaining the big picture. The only complaint I have is that it can be a little hard to follow along what hes writing on the board sometimes because his handwriting is kinda small.
+
+[Class: COMPSCI589 | rating: 1.0 | 2017-10-25]
+Worst professor I have ever had (graduate or undergraduate). He enjoys making the people around him feel inferior, and this motivation serves as the basis for his course. Instead of learning, I spent most of the time trying to figure out his expectations and do the tedious problems he assigned us. My 200 level undergrad ML class taught me more.

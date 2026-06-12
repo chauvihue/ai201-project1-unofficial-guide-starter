@@ -1,0 +1,83 @@
+[Thread: Thoughts on certain grad level CS classes | r/umass]
+
+[Post | score: OP | depth: 0]
+Hello. I'm a junior CS major currently looking into going after a master's, and just wanted to ask if anybody has taken or has heard anything about the following courses:
+
+CS 513/613: Logic in Computer Science/Adv. Logic in Computer Science
+
+CS 515: Algorithms, Game Theory and Fairness
+
+CS 550: Introduction to Simulation
+
+CS 574: Intelligent Visual Computing
+
+CS 576: Game Programming
+
+CS 611: Advanced Algorithms (Felt a chill down my spine when I saw this one)
+
+Any thoughts on any of those are appreciated.
+
+​
+
+[Comment | score: 5 | depth: 0]
+[Replying to: Hello. I'm a junior CS major currently looking into going after a master's, and just wanted to ask i...]
+514 brilliant class, probably one of the hardest 500. But definitely take it if you have a chance.
+
+[Comment | score: 2 | depth: 1]
+[Replying to: 514 brilliant class, probably one of the hardest 500. But definitely take it if you have a chance.]
+Definitely sounds worthwhile, thanks for the suggestion.
+
+[Comment | score: 1 | depth: 1]
+[Replying to: 514 brilliant class, probably one of the hardest 500. But definitely take it if you have a chance.]
+Can you elaborate if possible? Is 514 important for people who want to take graduate ML courses?
+
+[Comment | score: 2 | depth: 2]
+[Replying to: Can you elaborate if possible? Is 514 important for people who want to take graduate ML courses?]
+514 is algorithms for data science. I don’t think it’s particularly important for machine learning, but it covers some useful tools and concept in linear algebra and stats that may be used in machine learning.
+
+[Comment | score: 4 | depth: 0]
+[Replying to: Hello. I'm a junior CS major currently looking into going after a master's, and just wanted to ask i...]
+I took Game Programming w/ Evangelous during Covid when everything was remote (2021?). At the time, he would hold a remote lecture and record it so that the lectures were on demand.
+The class was done in C# and you essentially made games with the Unity engine. It was probably one of the easier courses I took for the masters program. If I remember right, Evangelos also teaches the Intelligent Visual Computing class so that could be interesting as well.
+
+I also took Algorithms (515) and I found the class to be pretty challenging mainly cuz my math background isn't too strong. It was also during covid and there was a huge scale - definitely much(!) more work than the game programming class but I think it's more beneficial once you graduate depending on what type of work you want to go into
+
+Hope that helps!
+
+[Comment | score: 2 | depth: 1]
+[Replying to: I took Game Programming w/ Evangelous during Covid when everything was remote (2021?). At the time,...]
+It does, thanks. Game programming sounds like what I expected and good to know 515 can be useful.
+
+[Comment | score: 3 | depth: 0]
+[Replying to: Hello. I'm a junior CS major currently looking into going after a master's, and just wanted to ask i...]
+Haven’t taken 515 but if it’s with Yair he is an excellent lecturer, took 683 with him
+
+611 is a bit of a time sink, even once you understand the algorithm, it takes some time to present and prove it. But as someone familiar with 311 and who took 611, it’s a pretty natural succession: you go more in depth to the algorithms you already know from 311 and get to see a few more in the second class.
+
+Both of the above courses (515 from what I’ve heard only) are proof intensive
+
+[Comment | score: 1 | depth: 1]
+[Replying to: Haven’t taken 515 but if it’s with Yair he is an excellent lecturer, took 683 with him 611 is a bit...]
+Good to know, I can usually handle proofs, and I'll be on the look out for Yair's classes. Thanks.
+
+[Comment | score: 1 | depth: 1]
+[Replying to: Haven’t taken 515 but if it’s with Yair he is an excellent lecturer, took 683 with him 611 is a bit...]
+What’s your opinion on 683?
+
+[Comment | score: 2 | depth: 2]
+[Replying to: What’s your opinion on 683?]
+683 is fun! It’s like a sampling of a lot of AI fields. Yair is a fun lecturer and also did his best to bring in guest speakers doing research in whatever we’re talking about.
+
+The problems sets are proof intensive, every other one included some programming component when I took it.
+
+It’s an excellent introduction while also building upon a lot of proof skills you hopefully already have (algorithms courses, discrete mathematics, etc.)
+
+[Comment | score: 2 | depth: 0]
+[Replying to: Hello. I'm a junior CS major currently looking into going after a master's, and just wanted to ask i...]
+I can only give opinions on 611 and 574. 611 is the hardest class I've taken (could be instructor dependent) but you learn a lot. It is hard enough that for some of the subjects you might need to review additional books and lectures until a concept clicks. That being said the less time you leave between lower level algorithms courses and 611 probably the better. It is a very important class and I don't necessarily recommend skipping it, just make sure you are prepared and leave time on your schedule (not doubling it up with another 600 level might be a good idea depending on your load).
+
+574 seems very promising so far. I think it's a unique class I don't think there are many classes like this one anywhere else where Neural Networks are applied to 3d-rendering. The professor mentioned he is leaving for Europe next year so not sure if it will get offered in the future unfortunately and I wouldn't necessarily recommend taking it without having taken an undergraduate graphics class and either 589 or 682. I hope it is offered again or the prof puts out a book because I haven't seen much else on this subject at the grad school level.
+
+[Comment | score: 1 | depth: 1]
+[Replying to: I can only give opinions on 611 and 574. 611 is the hardest class I've taken (could be instructor de...]
+611 sounds about like what I expected. Took 311 under Dan Sheldon, which I understand to be much easier than when Marius is in charge of it, so I'll be sure to prepare. I was planning to take 589 at some point and I'm taking 373 (intro graphics) at the moment, so supposing the professor is around by the time I enter grad school it sounds like a good fit for me. Thanks for the advice.

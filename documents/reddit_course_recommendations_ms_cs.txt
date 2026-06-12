@@ -1,0 +1,38 @@
+[Thread: Course recommendations MS CS | r/umass]
+
+[Post | score: OP | depth: 0]
+Hi all! I am an upcoming MS Computer Science student at Umass Amherst for Fall 2024. I am confused about which courses I should take in my first semester.
+
+I have a good background in software development and want to work on strengthening my algorithms. I am also keen to learn about and delve deeper into Artificial intelligence-related courses but I do not have much background in AI..
+
+I am thinking of taking COMPSCI 611 - Advanced Algorithms, COMPSCI- 589 OR 689: Machine Learning and STAT 525 - Regression Analysis
+
+COMPSCI 576 - Game Programming and COMPSCI 670 - Computer Vision also seem quite interesting to me.
+
+Considering my background and interests, do you have any suggestions or recommendations for what courses I should be going with during my first semester? Any insights would be extremely helpful!
+
+Thank you!!
+
+[Comment | score: 2 | depth: 0]
+[Replying to: Hi all! I am an upcoming MS Computer Science student at Umass Amherst for Fall 2024. I am confused a...]
+I recommend cs589 and stat525 not extremely hard courses and very applicable!
+
+[Comment | score: 1 | depth: 1]
+[Replying to: I recommend cs589 and stat525 not extremely hard courses and very applicable!]
+Thanks a lot! Just one question , like cs 589 is online vis-a-vis cs 689 which is in-person , so doesn't that make 689 a better option or 689 would be too heavy?
+
+[Comment | score: 2 | depth: 0]
+[Replying to: Hi all! I am an upcoming MS Computer Science student at Umass Amherst for Fall 2024. I am confused a...]
+This fall might be your last shot to do 576 until they find a new professor, so if you're interested you might want to jump on that. 589 is great pick to set you up for a foundation in AI/ML and doesn't assume much outside linalg and python. It sets you up pretty well to take most 600 level ml courses.
+
+For a 600 level pick, 611 is pretty tough but I don't think you need any other background outside undergrad algorithms and maybe some math refresher. I would not recommend starting off with 670 without any background in ML.
+
+Based on what you described 611, 576 and 589 would probably be a pretty good selection. I don't know anything about the stat course you mentioned so nothing to add there. Hope that helps!
+
+[Comment | score: 2 | depth: 1]
+[Replying to: This fall might be your last shot to do 576 until they find a new professor, so if you're interested...]
+Thanks so much for the detailed recommendations! I appreciate your insights. I’ll aim to take 576 this fall since it might be my last chance with the current professor. 589 sounds like a great foundation for AI/ML, and it's good to know it only requires linear algebra and Python.
+
+For the 600 level, 611 seems challenging but manageable given my background. I’ll steer clear of 670 for now since I lack ML experience. Based on your advice, I’m leaning towards 576, 589, and 611.
+
+I'm truly grateful for your help—thank you again for the guidance!

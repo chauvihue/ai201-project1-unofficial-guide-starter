@@ -1,0 +1,57 @@
+[Thread: Easy CS electives | r/umass]
+
+[Post | score: OP | depth: 0]
+What are the relatively easy CS electives
+
+[Comment | score: 13 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+345 is not so hard and is also extremely useful
+
+[Comment | score: 4 | depth: 1]
+[Replying to: 345 is not so hard and is also extremely useful]
+that and 445 ir whatever the follow up is
+
+[Comment | score: 7 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+Well, I suppose different people have different definitions of "easy," but here are some good ones:
+
+CS328 Mobile Health Analytics, a fairly easy class mainly about data science and some rudimentary AI/ML topics as well. Class is done in Python and you frequently work in groups.
+CS345 Database Management, really great class that teaches you PostgreSQL in depth. Honestly quite interesting, would 100% recommend you take it at some point.
+CS446 Search Engines, projects were all graded super generously, most of the exams were pretty easy. Some people think this course is hard, though -- I'm biased bc I took it while remote so all the exams were open book.
+I've heard secondhand that CS391L Computer Law is fairly easy, although I can't speak 100% on it.
+
+The extent to which "CS electives" and "relatively easy" belong in the same sentence is debatable; you're gonna have to put in at least a bit of work and mental energy into any 300+ CS elective.
+
+[Comment | score: 2 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+CS348 Principles of Data Science, if you have David Jensen, he’s a great teacher and a really nice guy. I wouldn’t worry about that course that much if you have a really solid statistics background.
+
+CS345 Database Management using SQL, SQL is easy to learn and very useful.
+
+[Comment | score: 1 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+I found 325 and 345 to be very easy. 325 is simple and doesn’t require a very large time commitment at all. 345 is about databases and is a very useful class to take. I would also recommend taking 445 if you end up taking 345 and do well.
+
+I HIGHLY recommend taking 563, Internet Law and Policy. It is extremely easy to get an A in this course and there is no coding involved whatsoever. However, you will need to have good essay writing skills and be prepared for long weekly readings.
+
+I see 446 was also suggested, but as mentioned, people have different definitions of easy. This course involves a very large amount Java coding in complex projects. The projects are also worth a very large portion of your grade. I ended up dropping this course because the projects were too difficult to do well on.
+
+[Comment | score: 1 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+graduated in 2018 so not sure if it is still offered but it may have been 525. Something about human interaction. It’s a group based course about UX stuff. Super easy
+
+[Comment | score: 0 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+345, 391L, 446, 383 (kinda)
+
+[Comment | score: 0 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+Can't talk about weather or not it's easy, but 365 is shaping up to be hella fun
+
+[Comment | score: 1 | depth: 0]
+[Replying to: What are the relatively easy CS electives]
+CS 490U UX Design, new elective. Seems very chill so far especially related to other CS classes.
+
+[Comment | score: 1 | depth: 1]
+[Replying to: CS 490U UX Design, new elective. Seems very chill so far especially related to other CS classes.]
+Hey, how did this class end up going ? (CS490U) what language does it use

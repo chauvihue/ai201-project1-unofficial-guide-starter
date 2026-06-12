@@ -76,6 +76,9 @@ PDF_NOISE_PATTERNS = [
         r"INFORMATION ONLY[^\n]*\n",
         re.I,
     ),
+    # Page footers like "1/15/2026 13" and URL remnants split across lines.
+    re.compile(r"^\d{1,2}/\d{1,2}/\d{4}\s+\d+\s*$", re.M),
+    re.compile(r"^edu/academics/course-overrides\.?\s*$", re.M),
 ]
 
 MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\([^)]+\)")
@@ -158,7 +161,15 @@ def get_reddit_client():
 
 
 def scrape_reddit_thread_json(slug: str, thread_id: str) -> None:
-    """Fallback: fetch thread via Reddit's public .json endpoint."""
+    """Fallback: fetch thread via Reddit's public .json endpoint.
+
+    NOTE (June 2026): Reddit closed self-service API access (Responsible
+    Builder Policy) and disabled unauthenticated .json endpoints, so both
+    the PRAW path and this fallback return 403 without approved credentials.
+    The reddit_*.txt files in documents/ were captured via browser automation
+    from old.reddit.com instead — see _browser_reddit_to_txt.py, which
+    converts that capture using the same cleaning/record format.
+    """
     url = f"https://www.reddit.com/r/umass/comments/{thread_id}/.json"
     headers = {"User-Agent": REDDIT_USER_AGENT}
     response = requests.get(url, headers=headers, timeout=30)
@@ -271,14 +282,35 @@ def extract_pdf(pdf_path: Path) -> None:
 # Orchestration
 # ---------------------------------------------------------------------------
 def main() -> None:
+    failures: list[str] = []
+
     for slug, thread_id in REDDIT_THREADS.items():
-        scrape_reddit(slug, thread_id)
+        try:
+            scrape_reddit(slug, thread_id)
+        except Exception as exc:
+            failures.append(f"reddit/{slug}: {exc}")
+            print(f"FAILED reddit/{slug}: {exc}")
 
     for slug, prof_id in RMP_PROFESSORS.items():
-        scrape_rmp_professor(slug, prof_id)
+        try:
+            scrape_rmp_professor(slug, prof_id)
+        except Exception as exc:
+            failures.append(f"rmp/{slug}: {exc}")
+            print(f"FAILED rmp/{slug}: {exc}")
 
     for pdf_path in sorted(DOCS_DIR.glob("*.pdf")):
-        extract_pdf(pdf_path)
+        try:
+            extract_pdf(pdf_path)
+        except Exception as exc:
+            failures.append(f"pdf/{pdf_path.name}: {exc}")
+            print(f"FAILED pdf/{pdf_path.name}: {exc}")
+
+    if failures:
+        print(f"\n{len(failures)} source(s) failed:")
+        for f in failures:
+            print(f"  - {f}")
+    else:
+        print("\nAll sources scraped successfully.")
 
 
 if __name__ == "__main__":

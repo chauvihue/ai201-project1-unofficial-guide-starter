@@ -58,11 +58,26 @@ As a freshman, I find that asking advisors about which electives to take isn't e
      numbers fit the structure of your documents.
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
-I will use recursive chunking to chunk up the documents. Each reddit and RMP comments, and course descriptions are self contained within itself, so we should chunk the entirety of each comment, no need for overlaps. Course schedule and registration information also have a well-defined structure for each course, so we chunk each row of the tables within these documents into a chunk to maintain the integrity of the information. Course descriptions have varying information density - some go into more depth than others - so we can consider breaking the descriptions down into smaller chunks. However, this will be a stretch feature for future implementation.
+I will use recursive chunking to chunk up the documents. Each reddit and RMP comments, and course descriptions are self contained within itself. The program should chunk the comments into chunks with some overlap, however there shouldn't be overlaps between seperate comments and reivews. Course schedule and registration information also have a well-defined structure for each course, so we chunk each row of the tables within these documents into a chunk to maintain the integrity of the information. Course descriptions have varying information density - some go into more depth than others - so we should break the descriptions down into smaller chunks with some overlaps in between.
 
-**Chunk size:** Let's try 1000-1200 characters for now
+For Rate My Professor chunks, some are smaller since the original reviews themselves can be shorter. For example, "He's the goat", "Best Instructor ever", "Goated professor", etc. I have decided to keep these smaller chunks without further changes, since they are original and still carry meanings. Further prompting with Github Copilot suggests that the shorter chunks may make the retrieval process a little bit trickier due to these smaller chunks may be seen as noise, bad quality data and embeddings that have less semantic signal. Though, the LLM does suggest that I should still keep this approach for the shorter chunks and tune the retrieval instead.
 
-**Reasoning:** Course descriptions can be long, so we need bigger chunks to not lose relevant contexts.
+### For Reddit threads
+
+**Chunk size:** up to 650 characters, or up to the end of each post/comment
+
+**Overlap size:** 80 characters.
+
+**Reasoning:** Based on the mean and median size of reddit comments and posts used in the corpus.
+
+
+### For Course Descriptions
+
+**Chunk size:** up to 1200 characters, or up to the end of each review/comment/description/row
+
+**Overlap size:** 150 characters.
+
+**Reasoning:** Claude Code has determined the size of each chunk should be 1200 characaters max with 150 characters overlap with calculations of mean and median size of each course description.
 
 ---
 
@@ -133,13 +148,14 @@ flowchart TD
   R -->|PRAW API| S
   P -->|ratemyprofessor / GraphQL| S
   U -->|pdfplumber| S
-  S[Scrape + clean<br/>scrape.py] --> CACHE[(Raw cache<br/>documents/*.txt, *.json)]
+  S[Scrape + clean<br/>scrape.py] --> CACHE[(Raw cache<br/>documents/*.txt)]
 
   %% ---- Stage 2: Chunking ----
-  CACHE --> B[Chunking<br/>record-based per comment/review/course;<br/>recursive 1000-1200 chars]
+  CACHE -->|documents/*.txt| B[Chunking<br/>chunk.py — type-aware, one record per comment/review/course;<br/>RecursiveCharacterTextSplitter<br/>Reddit: 650 chars / 80 overlap · PDF sources: 1200 chars / 150 overlap]
+  B --> CHUNKS[(chunks.jsonl<br/>text + source metadata)]
 
   %% ---- Stage 3: Embedding + Vector store ----
-  B --> C[Embedding<br/>all-MiniLM-L6-v2]
+  CHUNKS --> C[Embedding<br/>all-MiniLM-L6-v2]
   C --> D[(Vector store<br/>ChromaDB + source metadata)]
 
   %% ---- Stage 4: Retrieval ----
@@ -167,11 +183,9 @@ flowchart TD
 I'm going to use Claude Code. For each milestone, the API will read the entirety of planning.md, only implementing the functionality of the milestone while keep in mind the context of the project. 
 
 **Milestone 3 — Ingestion and chunking:**
-Detailed implementation brief: see `MILESTONE3_PROMPT.md` (operationalizes this spec for the coding agent).
-
 I'm going to ask Claude to code most of the data extraction process, since I don't have much knowledge about that. When the data is in pure JSON, or .txt files, I'm going to check the quality of the web scrape by seeing if users/profs' comments/reviews are there. I'm expecting the agent will produce a MVP with test data in the beginning, since the scraping pipeline might have to fall back in the first few iterations. 
 
-For chunking, I'm going to ask Claude to implement the recursive_chunk() method, and I'll verify its outputs later.
+Each chunks will have metadata keys such as "professor", "course_code" and "rating" for RMP chunks; "semester", "course_code" for Course schedules and description. For most files, I will deploy recursive chunking to chunk each review/column/comment into one unique, non-overlapping chunk using the help of Claude Code and Cursor (with Claude Fable 5) for implementation. This is to ensure that each comments' content don't bleed into another comment's chunk. For Reddit threads and Course Descriptions, I decided to break down into multiple chunks per comment/description if they are too long, in order to save the context window for future LLM calls.
 
 **Milestone 4 — Embedding and retrieval:**
 For embeddings, I'm going to use all-MiniLM-L6-v2 to embed natural language to vectors that are stored in ChromaDb.

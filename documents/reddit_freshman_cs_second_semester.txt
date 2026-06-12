@@ -1,0 +1,63 @@
+[Thread: Freshman CS Major, Second Semester Classes? | r/umass]
+
+[Post | score: OP | depth: 0]
+I have taken CS187, Math 233, a RAP econ course, and a history course this semester. Any advice on what to do next semester? I heard some of the next classes teach C++, and I don't really know C++.
+
+[Comment | score: 7 | depth: 0]
+[Replying to: I have taken CS187, Math 233, a RAP econ course, and a history course this semester. Any advice on w...]
+You will be taking either CS 220, CS 230, CS 240 or CS 250 next semester. All these are required courses to graduate as a CS major.
+
+Generally to stay on track to graduate, you will need to take 2 of these classes in a semester. Keep in mind that you cannot take 220 and 230 together. You also cannot take 240 and 250 together. (together = in the same semester)
+
+People usually take 220 along with 250 and 230 along with 240. But you can certainly do the other combination as well.
+
+220 is mainly Javascript
+
+230 will be programming in C (not C++)
+
+240 is primarily probability and math (no programming)
+
+250 is mainly proofs by induction, some algorithms, number theory and logic. Primarily logic
+
+Personally I felt that 250 was the most difficult of these 4 classes and 240 was the easiest.
+
+You will also ideally take Math 235 next semester since you need Math 131,132,233,235 to graduate as a CS major and you mentioned that you have taken Math 233.
+
+Hope this helps!
+
+[Comment | score: 2 | depth: 1]
+[Replying to: You will be taking either CS 220, CS 230, CS 240 or CS 250 next semester. All these are required cou...]
+This helps so much. Wow. I appreciate it. Do you recommend taking 220 and 250 first? I heard there's a seminar for teaching C. Is that worth it and how do I enroll for the seminar?
+
+[Comment | score: 3 | depth: 2]
+[Replying to: This helps so much. Wow. I appreciate it. Do you recommend taking 220 and 250 first? I heard there's...]
+I would recommend saving 250 for Fall 2021 personally. It's a pretty difficult course so being on campus and being able to go to office hours will go a long way for your homeworks. I'm taking 230 and 240 right now with no prior knowledge of C. It wouldn't hurt to take that seminar but personally that isn't really necessary. They spend the first third of the class teaching you C before going into other topics, which definitely helps.
+
+[Comment | score: 2 | depth: 3]
+[Replying to: I would recommend saving 250 for Fall 2021 personally. It's a pretty difficult course so being on ca...]
+Okay, that's awesome. Thanks for the help.
+
+[Comment | score: 2 | depth: 2]
+[Replying to: This helps so much. Wow. I appreciate it. Do you recommend taking 220 and 250 first? I heard there's...]
+It doesn't really matter what you take first. Unless you plan on taking CS 311 in the semester after the next one. I took 220 and 250 first.
+
+This allowed me to take CS 311, 230 and 240 in the same semester.
+(CS 250 is a prerequisite to CS 311 which is also a requirement for the CS major)
+
+I have no clue about any seminar that teaches you about C so I won't be able to comment on it.
+
+[Comment | score: 2 | depth: 3]
+[Replying to: It doesn't really matter what you take first. Unless you plan on taking CS 311 in the semester after...]
+Hi, I am a math major and I also like CS. Can you share what’s difficult about CS250? Is heavy on math or programming?
+I am a freshman too taking math 233h and math 331
+Cs121 and planning to take cs187 this winter. So I am aslo planning for +200 courses
+
+Generally, I don’t mind doing the double major or not, I just want to take hard classes on CS.
+
+[Comment | score: 1 | depth: 3]
+[Replying to: It doesn't really matter what you take first. Unless you plan on taking CS 311 in the semester after...]
+Okay, thank you for the help. I'll definitely take that into consideration. Taking 3 CS courses in one semester would make things go by quick.
+
+[Comment | score: 2 | depth: 4]
+[Replying to: Okay, thank you for the help. I'll definitely take that into consideration. Taking 3 CS courses in o...]
+I really don’t recommend 311 in conjunction with 230 and 240, that’s a massive course load. 311 is tough and 230 is just really project-heavy

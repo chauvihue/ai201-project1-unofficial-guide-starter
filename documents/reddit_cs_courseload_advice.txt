@@ -1,0 +1,71 @@
+[Thread: CS courseload advice | r/umass]
+
+[Post | score: OP | depth: 0]
+Does this schedule seem like too much: CS345, CS377, CS326, CS453, CS576.
+
+How are 345, 377, and 453 (courseload wise)?
+
+[Comment | score: 6 | depth: 0]
+[Replying to: Does this schedule seem like too much: CS345, CS377, CS326, CS453, CS576. How are 345, 377, and 453...]
+Yea it is. CS 377 was ok loadwise when I took it online. Theres lots of reading.
+
+[Comment | score: 4 | depth: 0]
+[Replying to: Does this schedule seem like too much: CS345, CS377, CS326, CS453, CS576. How are 345, 377, and 453...]
+That is a fairly heavy workload you have there. I would maybe consider dropping one of those classes if you’re able to.
+
+345 is easy, light workload, at least when I took it. 453 has a pretty decent workload, it was a very time consuming class for me, especially because I came in with absolutely no knowledge of networking. I’m also really not a big fan of the professor that teaches the course. Beware there is absolutely no curve for 453.
+
+I haven’t taken 326/377, but heard they have an ok workload. No idea about 576, but would highly recommend taking 563 if you can. I loved 563 when I took it. Very interesting class, professor is awesome, and you will definitely do very well as long as you have strong writing skills.
+
+[Comment | score: 1 | depth: 1]
+[Replying to: That is a fairly heavy workload you have there. I would maybe consider dropping one of those classes...]
+Definitely going to drop one of them, just waiting to read the syllabi for each class. Think it's going to be either 377 or 453.
+
+I heard 453 was really hard. Is that because of the workload or the material (or both)? Does it move fast?
+
+[Comment | score: 2 | depth: 2]
+[Replying to: Definitely going to drop one of them, just waiting to read the syllabi for each class. Think it's go...]
+I would personally recommend dropping 453 in that case. I barely passed the course with P/F last semester. IMO it’s a combination of stuff that makes the course difficult. The professor is shitty at explaining stuff, the 2 hour lectures where prof only regurgitates the slides are brutal, exams are weighted heavily, there is no curve. The material I guess isn’t too challenging, it’s just the material mixed with all the other stuff that makes the course difficult. Also if you bomb either of the two exams, it’s over.
+
+[Comment | score: 1 | depth: 3]
+[Replying to: I would personally recommend dropping 453 in that case. I barely passed the course with P/F last sem...]
+That doesn't sound fun. Are the exams like 30% or something like that? Did you have Parviz Kermani?
+
+[Comment | score: 2 | depth: 4]
+[Replying to: That doesn't sound fun. Are the exams like 30% or something like that? Did you have Parviz Kermani?]
+Yes, I did have Parviz. Both exams total 50% of your final grade. Plus you MUST get a passing grade on the final to pass the class. Even if you have a 100% on everything else, if you score below a 60% on the final you fail the entire course.
+
+[Comment | score: 1 | depth: 5]
+[Replying to: Yes, I did have Parviz. Both exams total 50% of your final grade. Plus you MUST get a passing grade...]
+Wow, that is very good to know, Might avoid it in that case. Thanks!
+
+[Comment | score: 1 | depth: 2]
+[Replying to: Definitely going to drop one of them, just waiting to read the syllabi for each class. Think it's go...]
+You forgot the word “I” before the word “think” in your second sentence.
+
+[Comment | score: 1 | depth: 0]
+[Replying to: Does this schedule seem like too much: CS345, CS377, CS326, CS453, CS576. How are 345, 377, and 453...]
+I've taken, or known someone who's taken all of these courses. Things might change depending on the professor but to my knowledge none of those classes were particularly channeling. Def not comparable to a class like 250 or 311 if you're familiar with those. If those are your only courses and you've done 5 classes like this previously I would say that its tough but certainly manageable.
+
+I've taken both 377 and 453 and it seems like your deciding between one of those to drop, so if you have any questions about those specifically I would be happy to answer.
+
+[Comment | score: 1 | depth: 1]
+[Replying to: I've taken, or known someone who's taken all of these courses. Things might change depending on the...]
+I usually try to stick to 4 classes a semester. I've already taken both 250 and 311, which I heard were the pinnacle of undergrad course difficulty.
+
+Of 377 and 453, which did you find more enjoyable and engaging (material or class wise)? Which was easier? I have Mark Corner for 377, if you had him, do you think he teaches well?
+
+[Comment | score: 2 | depth: 2]
+[Replying to: I usually try to stick to 4 classes a semester. I've already taken both 250 and 311, which I heard w...]
+I can tell you that I really enjoyed both classes, unfortunately I don’t think my experience is very representative of what you will be having.
+
+For 453 I took it with Jim Kurose who is an absolutely amazing prof, I can’t recommend him highly enough. I know that this semester the course is being taught by prof Kermani. I haven’t taken 453 specifically with him but I’ve heard things and I’ve taken other classes with him. I’ve heard some complaints about how he can be very stern and intimidating but I think this mostly stems from the fact that he doesn’t speak English super fluently. If you actually get to know him and go to office hours, he is very helpful and he loves teaching and his students. People say that when Kermani teaches it, the course is much harder compared to Kurose. I wouldn’t say that’s necessarily because he’s a bad professor, it’s because Kurose is an amazing one.
+
+I also really enjoyed 377. It’s lots of low level programming, which many people find challenging, but if that your jam then you’ll love it. If you enjoyed that from 230 and you like the feeling of “peeking behind the curtain” on how computers work, you’ll like 377. My experience for this class also might be slightly skewed because our TA for that class was also amazing and very helpful so I’m not sure how much that impacts my experience. I will say that Corner is a very controversial prof. Some people love him and some people hate him. He’s very knowledgeable and has worked in industry for many years which is rare among academia. I’ve heard that he can have a big ego and be very arrogant and crass however, especially if you’re asking “stupid” questions, either during class or at office hours. I haven’t experienced that because I just asked the TA normally, so I can’t attest to it personally, it’s just something that I’ve heard many people complain about.
+
+Hands down 453 was the best class I've ever taken, more enjoyable more engaging and also a lot easier because I felt like I actually learned the material, and that's during the pandemic which I think says a lot.
+I know that professor Kermani uses the same materials, assignments and textbooks, and honestly the textbook (which is written by Kurose) is really great so while it probably won't be as great, it would probably still be an interesting class. For Corner, I think he did a decent job teaching the class, but again, you could find lots of people who would say the exact opposite, but also the TA did a lot of heavy lifting as well. I will say that the class just builds upon layers of abstraction, so if you ever get confused about something, make sure that you figure it out one way or another, otherwise nothing else from that point on will make any sense.
+
+[Comment | score: 1 | depth: 0]
+[Replying to: Does this schedule seem like too much: CS345, CS377, CS326, CS453, CS576. How are 345, 377, and 453...]
+I would strongly advise against taking 5 CS courses in the same semester. Imho, I do my best to avoid taking more than three courses within the same department because it can really burn you out and make you start hating those types of classes. I had a friend who took basically all CS classes one semester and he hated it and really struggled. I definitely recommend dropping one course, and I’d suggest dropping another and adding a course from a different department if you have the flexibility. Speaking on the courses you’ve listed, I haven’t taken any of them but from what I’ve heard from others 345 is rather easy, 326 is pretty manageable so long as you get paired with a good group, and 377 can be a lot but isn’t overbearing so long as you devote enough time to the course. I unfortunately can’t comment on the other two courses.
