@@ -146,6 +146,142 @@ def strip_pdf_noise(text: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Registration-info PDFs  (column-aware extraction)
+#
+# The *_reg_info.pdf files are 4-column tables with NO drawn borders:
+#   col 1: course code / title / instructor(s)
+#   col 2: prerequisites
+#   col 3: eligibility restrictions
+#   col 4: class notes / comments
+# pdfplumber's plain extract_text() reads each visual row left-to-right, so it
+# interleaves all four columns into one jumbled line per row (prereqs spliced
+# mid-sentence with eligibility and notes, instructor names embedded in
+# paragraphs, and the override-form URL — the actionable payload — destroyed).
+#
+# Instead we detect each course row by the y-position of its course-code word
+# in column 1, then crop and extract each column independently within that row
+# band, reassembling one clean, self-contained record per course.
+# ---------------------------------------------------------------------------
+# Column left/right x-dividers, measured from word left-edge clustering on the
+# Fall 2026 / Spring 2026 sheets (page width ~1131pt).
+REG_COL_X = [26, 205, 435, 655, 1010]
+# Course-code rows sit a few px below their row's first prereq line, so pad the
+# band upward to capture same-row content in the other columns.
+REG_BAND_PAD = 6.0
+# Table body ends here; the per-page footer ("<date> <pageno>") sits below it.
+REG_BODY_BOTTOM_Y = 824.0
+
+REG_CODE_WORD_RE = re.compile(r"^(?:CICS|COMPSCI|INFO|MATH)$", re.I)
+REG_HAS_LOWER_RE = re.compile(r"[a-z]")
+# Footer date (optionally followed by a page number) that leaks into a column.
+REG_FOOTER_RE = re.compile(r"\b\d{1,2}/\d{1,2}/\d{4}\b\s*\d*")
+# Domain split across a line wrap, e.g. "...umass. edu/..." -> "...umass.edu/...".
+REG_URL_SPACE_RE = re.compile(r"umass\.\s+edu", re.I)
+
+
+def clean_reg_field(text: str) -> str:
+    """Clean one reg-info column cell, PRESERVING URLs (unlike clean_text).
+
+    Joins line-wrapped text into a single block and repairs the override-form
+    URL where the PDF split it across lines ("https: //" and "umass. edu").
+    """
+    if not text:
+        return ""
+    text = html.unescape(text)
+    text = re.sub(r"https:\s*//", "https://", text)
+    text = text.replace("\n", " ")
+    text = REG_FOOTER_RE.sub("", text)
+    text = REG_URL_SPACE_RE.sub("umass.edu", text)
+    text = WHITESPACE_RE.sub(" ", text)
+    return text.strip()
+
+
+def _reg_col_text(page, x0: float, top: float, x1: float, bottom: float) -> str:
+    """Extract the text in one column band; empty string if the band is degenerate."""
+    bottom = min(bottom, REG_BODY_BOTTOM_Y)
+    if bottom <= top:
+        return ""
+    crop = page.within_bbox((x0, max(top, 0), x1, bottom))
+    return (crop.extract_text() or "").strip()
+
+
+def _parse_reg_col1(col1: str) -> tuple[str | None, str, str]:
+    """Split column 1 into (course_code, title, instructors).
+
+    Line 1 is the course code. Remaining lines are the title (UPPERCASE) and
+    instructor names (Title Case) — distinguished by the presence of a
+    lowercase letter, which titles in this sheet never contain.
+    """
+    lines = [ln.strip() for ln in col1.splitlines() if ln.strip()]
+    if not lines:
+        return None, "", ""
+    code = WHITESPACE_RE.sub(" ", lines[0])
+    title_parts, instr_parts = [], []
+    for ln in lines[1:]:
+        (instr_parts if REG_HAS_LOWER_RE.search(ln) else title_parts).append(ln)
+    return code, " ".join(title_parts).strip(), " ".join(instr_parts).strip()
+
+
+def _format_reg_record(code, title, instructors, prereq, elig, notes) -> str:
+    """Assemble one self-contained course record; omit empty fields."""
+    head = f"{code} {title}".strip() if title else code
+    lines = [head]
+    if instructors:
+        lines.append(f"Instructor(s): {instructors}")
+    if prereq:
+        lines.append(f"Prerequisites: {prereq}")
+    if elig:
+        lines.append(f"Eligibility: {elig}")
+    if notes:
+        lines.append(f"Notes: {notes}")
+    return "\n".join(lines)
+
+
+def extract_reg_info_pdf(pdf_path: Path) -> None:
+    """Extract a *_reg_info.pdf as one clean record per course (column-aware)."""
+    import pdfplumber
+
+    records: list[str] = []
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            words = page.extract_words()
+            anchors = sorted(
+                {
+                    round(w["top"], 1)
+                    for w in words
+                    if w["x0"] < REG_COL_X[1] and REG_CODE_WORD_RE.match(w["text"])
+                }
+            )
+            bounds = anchors + [page.height + REG_BAND_PAD]
+            for j, _ in enumerate(anchors):
+                top = bounds[j] - REG_BAND_PAD
+                bottom = bounds[j + 1] - REG_BAND_PAD
+                code, title, instructors = _parse_reg_col1(
+                    _reg_col_text(page, REG_COL_X[0], top, REG_COL_X[1], bottom)
+                )
+                if not code:
+                    continue
+                title = clean_reg_field(title)
+                prereq = clean_reg_field(
+                    _reg_col_text(page, REG_COL_X[1], top, REG_COL_X[2], bottom)
+                )
+                elig = clean_reg_field(
+                    _reg_col_text(page, REG_COL_X[2], top, REG_COL_X[3], bottom)
+                )
+                notes = clean_reg_field(
+                    _reg_col_text(page, REG_COL_X[3], top, REG_COL_X[4], bottom)
+                )
+                records.append(
+                    _format_reg_record(code, title, instructors, prereq, elig, notes)
+                )
+
+    out = pdf_path.with_suffix(".txt")
+    body = "\n\n".join(records)
+    out.write_text(body + "\n", encoding="utf-8")
+    print(f"extracted {pdf_path.name} -> {out.name} ({len(records)} course records)")
+
+
+# ---------------------------------------------------------------------------
 # Reddit  (PRAW, with .json fallback)
 # ---------------------------------------------------------------------------
 def get_reddit_client():
@@ -268,6 +404,13 @@ def scrape_rmp_professor(slug: str, professor_id: str) -> None:
 def extract_pdf(pdf_path: Path) -> None:
     """Extract text from one PDF to a parallel .txt cache."""
     import pdfplumber
+
+    # The multi-column reg-info tables need column-aware extraction; the
+    # course-description and course-schedule PDFs are single-flow and use the
+    # plain extract_text() path below.
+    if "reg_info" in pdf_path.name.lower():
+        extract_reg_info_pdf(pdf_path)
+        return
 
     with pdfplumber.open(pdf_path) as pdf:
         text = "\n\n".join(p.extract_text() for p in pdf.pages if p.extract_text())

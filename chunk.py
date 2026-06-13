@@ -25,19 +25,22 @@ REDDIT_OVERLAP = 80
 
 # Anchored at line start so course codes mentioned mid-sentence
 # (e.g. "... OR COMPSCI 121 WITH A GRADE OF C") don't trigger bogus splits.
-# [A-Z]? covers honors/letter-prefixed numbers like "COMPSCI H311".
+# [A-Z]? covers honors/letter-prefixed numbers like "COMPSCI H311", and the
+# trailing [A-Z]{0,2} covers suffixed codes like "COMPSCI 590RM"/"COMPSCI 690K".
+# Without the suffix, \d{3}\b fails before the letters (no word boundary), so
+# e.g. "COMPSCI 590RM" was absorbed into the preceding 589 block.
 COURSE_CODE_LOOKAHEAD = re.compile(
-    r"(?m)(?=^(?:CICS|COMPSCI|INFO|MATH)\s?[A-Z]?\d{3}\b)", re.I
+    r"(?m)(?=^(?:CICS|COMPSCI|INFO|MATH)\s?[A-Z]?\d{3}[A-Z]{0,2}\b)", re.I
 )
 COURSE_HEADER_LINE = re.compile(
-    r"^(?:CICS|COMPSCI|INFO|MATH)\s+[A-Z]?\d{3}\b", re.I
+    r"^(?:CICS|COMPSCI|INFO|MATH)\s+[A-Z]?\d{3}[A-Z]{0,2}\b", re.I
 )
 COURSE_CODE_EXTRACT = re.compile(
-    r"^((?:CICS|COMPSCI|INFO|MATH)\s?[A-Z]?\d{3})", re.I
+    r"^((?:CICS|COMPSCI|INFO|MATH)\s?[A-Z]?\d{3}[A-Z]{0,2})", re.I
 )
 SCHEDULE_ROW_LINE = re.compile(r"^U\d+\s", re.I)
 REG_COURSE_BLOCK = re.compile(
-    r"(?m)(?=^(?:CICS|COMPSCI|INFO|MATH)\s+[A-Z]?\d{3}\b)", re.I
+    r"(?m)(?=^(?:CICS|COMPSCI|INFO|MATH)\s+[A-Z]?\d{3}[A-Z]{0,2}\b)", re.I
 )
 HAS_LETTERS = re.compile(r"[A-Za-z]")
 
@@ -81,6 +84,36 @@ RMP_RECORD_RE = re.compile(
 
 HTML_ARTIFACT_RE = re.compile(r"<|&gt;|&amp;|&lt;")
 
+# Recurring honors/499Y trailer the PDF appends to many course descriptions.
+# It carries no course-specific meaning and pollutes embeddings; the trailing
+# "Does not count as a CS elective" clause is a negation the embedding model
+# can't represent, so it falsely matches *elective* queries. Strip both before
+# chunking. The honors trailer is removed only up to "prior to registering."
+# so meaningful follow-on sentences (e.g. "Open to graduate ... students only.")
+# are preserved.
+HONORS_BOILERPLATE_RE = re.compile(
+    r"\s*For\s+undergraduates considering graduate studies.*?prior to registering\.",
+    re.S | re.I,
+)
+CS_ELECTIVE_DISCLAIMER_RE = re.compile(
+    r"\s*Does not count as a CS elective for the CS major \(BA or BS\)\.",
+    re.I,
+)
+# PDF page footers, e.g. "2026 Spring --- page 9 --- 1/15/2026".
+PAGE_FOOTER_RE = re.compile(
+    r"(?m)^\s*20\d{2}\s+(?:Spring|Fall|Summer|Winter)\s+---\s+page\s+\d+\s+---.*$"
+)
+
+
+def strip_boilerplate(text: str) -> str:
+    """Remove recurring PDF artifacts that add noise to embeddings."""
+    text = HONORS_BOILERPLATE_RE.sub("", text)
+    text = CS_ELECTIVE_DISCLAIMER_RE.sub("", text)
+    text = PAGE_FOOTER_RE.sub("", text)
+    # Collapse blank-line runs left behind by the removals.
+    text = re.sub(r"\n[ \t]*\n[ \t]*\n+", "\n\n", text)
+    return text
+
 
 def semester_from_filename(filename: str) -> str | None:
     name = filename.lower()
@@ -103,6 +136,8 @@ def source_type_from_filename(filename: str) -> str | None:
         return "course_schedule"
     if name.endswith("_reg_info.txt"):
         return "reg_info"
+    if "requirement" in name:
+        return "degree_requirement"
     return None
 
 
@@ -146,6 +181,86 @@ def maybe_split_reddit(text: str) -> list[str]:
     return [c.strip() for c in REDDIT_SPLITTER.split_text(text) if c.strip()]
 
 
+# Graduate-audience keywords. \bgrad\b matches standalone "grad" without
+# catching "grade" (e after d => no boundary) or "undergraduate"/"undergrad"
+# (no boundary before "grad"), so undergrad terms never read as grad.
+AUDIENCE_KEYWORDS_RE = re.compile(
+    r"\bMS\b|\bmaster'?s?\b|\bgraduate\b|\bgrad\b|\bPh\.?D\b", re.I
+)
+
+
+def classify_audience(text: str, course_code: str | None) -> str | None:
+    """Tag a chunk's intended audience for query-time re-ranking.
+
+    Rules (in priority order):
+      - any grad keyword in the text, OR a 600+ course code -> "grad"
+      - no keyword and a 500-level code, OR no course code     -> "mixed"
+      - no keyword and a sub-500 code                          -> "undergrad"
+      - anything indeterminate                                 -> None (safe no-op)
+    500-level codes are "mixed" rather than "grad" because they are dual
+    undergrad/grad courses at UMass; the keyword check still promotes them
+    to "grad" when the text makes the graduate context explicit.
+    """
+    has_keyword = bool(AUDIENCE_KEYWORDS_RE.search(text or ""))
+    match = re.search(r"\d{3}", course_code or "")
+    level = int(match.group(0)) if match else None
+
+    if has_keyword:
+        return "grad"
+    if level is None:
+        return "mixed"
+    if 500 <= level < 600:
+        return "mixed"
+    if level >= 600:
+        return "grad"
+    if level < 500:
+        return "undergrad"
+    return None
+
+
+# Reddit threads are classified at the THREAD level, not per comment: a lone
+# "grad"/"MS" mention inside an otherwise-undergrad thread must not flip a
+# single chunk. The title is the strongest signal; the levels of course codes
+# discussed in the body are the fallback. Bare "graduate" still counts here
+# (titles are deliberate), but it is the per-comment scan that this avoids.
+GRAD_TITLE_RE = re.compile(
+    r"\bMS\b|\bmaster'?s?\b|\bgraduate\b|\bgrad\b|\bPhD\b", re.I
+)
+UNDERGRAD_TITLE_RE = re.compile(
+    r"\bfreshman\b|\bsophomore\b|\bfirst[- ]?year\b|\bundergrad(?:uate)?\b", re.I
+)
+# Standalone 3-digit course numbers (e.g. "400+/500+", "200+"); \b...\b avoids
+# matching years like "24" (2 digits) or "2024" (4 digits).
+COURSE_NUMBER_RE = re.compile(r"\b(\d{3})\b")
+
+
+def classify_reddit_audience(thread_title: str, body: str) -> str | None:
+    """Classify a whole Reddit thread by title, falling back to body courses."""
+    title_codes = [int(n) for n in COURSE_NUMBER_RE.findall(thread_title)]
+    grad_signal = bool(GRAD_TITLE_RE.search(thread_title)) or any(
+        n >= 500 for n in title_codes
+    )
+    ug_signal = bool(UNDERGRAD_TITLE_RE.search(thread_title)) or any(
+        n < 500 for n in title_codes
+    )
+    if grad_signal and not ug_signal:
+        return "grad"
+    if ug_signal and not grad_signal:
+        return "undergrad"
+    if grad_signal and ug_signal:
+        return "mixed"
+
+    # No title signal: decide by the levels of courses discussed in the body.
+    body_codes = [int(n) for n in COURSE_NUMBER_RE.findall(body)]
+    grad_codes = sum(1 for n in body_codes if n >= 500)
+    ug_codes = sum(1 for n in body_codes if n < 500)
+    if grad_codes > ug_codes:
+        return "grad"
+    if ug_codes > grad_codes:
+        return "undergrad"
+    return "mixed"
+
+
 def make_chunk(
     text: str,
     source_file: str,
@@ -156,10 +271,15 @@ def make_chunk(
     chunk = {
         "text": text,
         "source_file": source_file,
+
         "source_type": source_type,
         "chunk_index": chunk_index,
     }
     chunk.update(extra)
+    # A caller may pre-assign audience (Reddit uses a thread-level tag); only
+    # fall back to the per-chunk code/keyword classifier when it didn't.
+    if "audience" not in chunk:
+        chunk["audience"] = classify_audience(text, extra.get("course_code"))
     return chunk
 
 
@@ -170,6 +290,7 @@ def chunk_reddit_file(path: Path) -> list[dict]:
     body = parts[1] if len(parts) > 1 else ""
     thread_match = REDDIT_HEADER_RE.match(header)
     thread_title = thread_match.group(1).strip() if thread_match else header
+    thread_audience = classify_reddit_audience(thread_title, body)
 
     chunks: list[dict] = []
     index = 0
@@ -190,7 +311,11 @@ def chunk_reddit_file(path: Path) -> list[dict]:
         if reply_to:
             text = f'(replying to: "{reply_to}")\n{text}'
 
-        base_extra = {"thread_title": thread_title, "record_index": record_index}
+        base_extra = {
+            "thread_title": thread_title,
+            "record_index": record_index,
+            "audience": thread_audience,
+        }
         if depth is not None:
             base_extra["depth"] = int(depth)
         if reply_to:
@@ -224,7 +349,7 @@ def chunk_rmp_file(path: Path) -> list[dict]:
         match = RMP_RECORD_RE.match(record)
         if not match:
             continue
-        class_name = match.group(1).strip()
+        course_code = match.group(1).strip()
         rating = float(match.group(2))
         date = match.group(3).strip()
         text = match.group(4).strip()
@@ -236,7 +361,7 @@ def chunk_rmp_file(path: Path) -> list[dict]:
                     "rmp",
                     index,
                     professor=professor,
-                    class_name=class_name,
+                    course_code=course_code,
                     rating=rating,
                     date=date,
                 )
@@ -246,7 +371,7 @@ def chunk_rmp_file(path: Path) -> list[dict]:
 
 
 def chunk_course_descriptions(path: Path) -> list[dict]:
-    text = path.read_text(encoding="utf-8").strip()
+    text = strip_boilerplate(path.read_text(encoding="utf-8")).strip()
     semester = semester_from_filename(path.name)
     blocks = [
         b.strip()
@@ -271,7 +396,7 @@ def chunk_course_descriptions(path: Path) -> list[dict]:
 
 
 def chunk_course_schedule(path: Path) -> list[dict]:
-    text = path.read_text(encoding="utf-8").strip()
+    text = strip_boilerplate(path.read_text(encoding="utf-8")).strip()
     semester = semester_from_filename(path.name)
     chunks: list[dict] = []
     index = 0
@@ -299,8 +424,18 @@ def chunk_course_schedule(path: Path) -> list[dict]:
     return chunks
 
 
-def chunk_reg_info(path: Path) -> list[dict]:
+def chunk_degree_requirements(path: Path) -> list[dict]:
     text = path.read_text(encoding="utf-8").strip()
+    chunks: list[dict] = []
+    for index, piece in enumerate(maybe_split(text)):
+        chunks.append(
+            make_chunk(piece, path.name, "degree_requirement", index, degree_type="BS", start_term="Fall 2023")
+        )
+    return chunks
+
+
+def chunk_reg_info(path: Path) -> list[dict]:
+    text = strip_boilerplate(path.read_text(encoding="utf-8")).strip()
     semester = semester_from_filename(path.name)
     blocks = [
         b.strip()
@@ -334,7 +469,58 @@ def chunk_file(path: Path) -> list[dict]:
         return chunk_course_schedule(path)
     if source_type == "reg_info":
         return chunk_reg_info(path)
+    if source_type == "degree_requirement":
+        return chunk_degree_requirements(path)
     return []
+
+
+def _merge_key(chunk: dict) -> str:
+    """Identity key for detecting cross-semester duplicate chunks.
+
+    Two chunks are the same logical record when they share source_type,
+    course_code, and the first 120 characters of their text — which happens
+    when the same course block is extracted from both the Spring and Fall
+    versions of the same document type.
+    """
+    return "|".join(
+        [
+            str(chunk.get("source_type", "")),
+            str(chunk.get("course_code", "")),
+            chunk.get("text", "")[:120].strip(),
+        ]
+    )
+
+
+def merge_cross_semester_duplicates(chunks: list[dict]) -> list[dict]:
+    """Collapse same-content chunks from different semesters into one.
+
+    When two chunks have the same text and course code but come from different
+    semester files (e.g. s26_course_description.txt and f26_course_description.txt),
+    keep the first-seen chunk and append the second file's source_file and semester
+    to the existing fields as comma-separated values.  This reduces corpus size
+    while preserving full attribution.
+    """
+    seen: dict[str, int] = {}   # merge_key -> index in merged list
+    merged: list[dict] = []
+
+    for chunk in chunks:
+        key = _merge_key(chunk)
+        if key not in seen:
+            seen[key] = len(merged)
+            merged.append(chunk)
+        else:
+            existing = merged[seen[key]]
+            # Append source_file if not already listed.
+            new_src = chunk.get("source_file", "")
+            if new_src and new_src not in existing.get("source_file", ""):
+                existing["source_file"] = existing["source_file"] + ", " + new_src
+            # Append semester if not already listed.
+            new_sem = chunk.get("semester")
+            if new_sem and new_sem not in str(existing.get("semester", "")):
+                old_sem = existing.get("semester") or ""
+                existing["semester"] = (old_sem + ", " + new_sem).lstrip(", ")
+
+    return merged
 
 
 def build_chunks() -> list[dict]:
@@ -345,6 +531,13 @@ def build_chunks() -> list[dict]:
         file_chunks = chunk_file(path)
         print(f"chunked {path.name}: {len(file_chunks)} chunks")
         all_chunks.extend(file_chunks)
+
+    before = len(all_chunks)
+    all_chunks = merge_cross_semester_duplicates(all_chunks)
+    after = len(all_chunks)
+    if before != after:
+        print(f"merged {before - after} cross-semester duplicate chunks ({before} -> {after})")
+
     return all_chunks
 
 

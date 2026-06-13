@@ -49,6 +49,7 @@ As a freshman, I find that asking advisors about which electives to take isn't e
 | 22 | Local Repo | Fall 2026 Course Description | documents/f26_course_description.pdf |
 | 23 | Local Repo | Fall 2026 Course Schedule |  | documents/f26_course_schedule.pdf |
 | 24 | Local Repo | Fall 2026 Eligibility/Prereq. Registration Info | documents/f26_reg_info.pdf |
+| 25 | Local Repo | BS in Computer Science Degree Requirements: 2023 Revision | documents/computer_science_bs_requirement_f23.txt |
 ---
 
 ## Chunking Strategy
@@ -58,7 +59,7 @@ As a freshman, I find that asking advisors about which electives to take isn't e
      numbers fit the structure of your documents.
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
-I will use recursive chunking to chunk up the documents. Each reddit and RMP comments, and course descriptions are self contained within itself. The program should chunk the comments into chunks with some overlap, however there shouldn't be overlaps between seperate comments and reivews. Course schedule and registration information also have a well-defined structure for each course, so we chunk each row of the tables within these documents into a chunk to maintain the integrity of the information. Course descriptions have varying information density - some go into more depth than others - so we should break the descriptions down into smaller chunks with some overlaps in between.
+I will use recursive chunking to chunk up the documents. Each reddit and RMP comments, and course descriptions are self contained within itself. The program should chunk the comments into chunks with some overlap, however there shouldn't be overlaps between seperate comments and reivews. Course schedule and registration information also have a well-defined structure for each course, so we chunk each row of the tables within these documents into a chunk to maintain the integrity of the information. Course descriptions and Degree Requirement have varying information density - some go into more depth than others - so we should break the descriptions down into smaller chunks with some overlaps in between.
 
 For Rate My Professor chunks, some are smaller since the original reviews themselves can be shorter. For example, "He's the goat", "Best Instructor ever", "Goated professor", etc. I have decided to keep these smaller chunks without further changes, since they are original and still carry meanings. Further prompting with Github Copilot suggests that the shorter chunks may make the retrieval process a little bit trickier due to these smaller chunks may be seen as noise, bad quality data and embeddings that have less semantic signal. Though, the LLM does suggest that I should still keep this approach for the shorter chunks and tune the retrieval instead.
 
@@ -71,13 +72,15 @@ For Rate My Professor chunks, some are smaller since the original reviews themse
 **Reasoning:** Based on the mean and median size of reddit comments and posts used in the corpus.
 
 
-### For Course Descriptions
+### For Course Descriptions & Degree Requirements
 
 **Chunk size:** up to 1200 characters, or up to the end of each review/comment/description/row
 
 **Overlap size:** 150 characters.
 
 **Reasoning:** Claude Code has determined the size of each chunk should be 1200 characaters max with 150 characters overlap with calculations of mean and median size of each course description.
+
+The BS in Computer Science Degree Requirement document is dense prose split into named sections (Overview, intro/core/math/elective course lists, lab science, residency, etc.) with varying depth. It uses the same recursive chunking approach and the same 1200 / 150 parameters as Course Descriptions: the recursive splitter prefers paragraph/section breaks (`\n\n`) so a whole section stays together when it fits, and the 150-character overlap keeps requirement clauses from being severed across a chunk boundary.
 
 ---
 
@@ -108,11 +111,11 @@ For each query, ground the responses to the 5 most relevant chunks. Each chunk h
 
 | # | Question | Expected answer |
 |---|----------|-----------------|
-| 1 | Which main 200-level COMPSCI courses are offered in Spring 2026? | COMPSCI 210, COMPSCI 220, COMPSCI 230, COMPSCI 240, COMPSCI 250 |
-| 2 | | |
-| 3 | | |
-| 4 | | |
-| 5 | | |
+| 1 | Which main 200-level COMPSCI courses are required for the CS major? | CICS 210, COMPSCI 220, COMPSCI 230, COMPSCI 240, COMPSCI 250 |
+| 2 | What are some electives I can take for the MS CS? | CS 560, CS 576, CS 589, CS 651, CS 670, CS 690k, 651, CS 514, CS 611 |
+| 3 | What are the most common reviews about Professor Parvini?| She's funny, she cares about students and will help students to understand concepts. She is disorganized though |
+| 4 | I want to take CS 220, CS 230 and CS250 at the same time, give me their schedule times for lectures and labs in Fall 2026 | |
+| 5 | What are the prerequisite classes for most 300-level courses?| CICS 210, CS 240, CS 220, CS 230, CS 250, CS 320|
 
 ---
 
@@ -142,7 +145,7 @@ flowchart TD
   %% ---- Sources ----
   R[Reddit threads]
   P[Rate My Professor]
-  U[UMass PDFs<br/>descriptions, schedule, reg info]
+  U[UMass PDFs<br/>descriptions, schedule, reg info,<br/>degree requirements]
 
   %% ---- Stage 1: Ingestion / scraping ----
   R -->|PRAW API| S
@@ -151,7 +154,7 @@ flowchart TD
   S[Scrape + clean<br/>scrape.py] --> CACHE[(Raw cache<br/>documents/*.txt)]
 
   %% ---- Stage 2: Chunking ----
-  CACHE -->|documents/*.txt| B[Chunking<br/>chunk.py — type-aware, one record per comment/review/course;<br/>RecursiveCharacterTextSplitter<br/>Reddit: 650 chars / 80 overlap · PDF sources: 1200 chars / 150 overlap]
+  CACHE -->|documents/*.txt| B[Chunking<br/>chunk.py — type-aware, one record per comment/review/course;<br/>RecursiveCharacterTextSplitter<br/>Reddit: 650 chars / 80 overlap · PDF sources + degree requirements: 1200 chars / 150 overlap]
   B --> CHUNKS[(chunks.jsonl<br/>text + source metadata)]
 
   %% ---- Stage 3: Embedding + Vector store ----
@@ -183,14 +186,17 @@ flowchart TD
 I'm going to use Claude Code. For each milestone, the API will read the entirety of planning.md, only implementing the functionality of the milestone while keep in mind the context of the project. 
 
 **Milestone 3 — Ingestion and chunking:**
-I'm going to ask Claude to code most of the data extraction process, since I don't have much knowledge about that. When the data is in pure JSON, or .txt files, I'm going to check the quality of the web scrape by seeing if users/profs' comments/reviews are there. I'm expecting the agent will produce a MVP with test data in the beginning, since the scraping pipeline might have to fall back in the first few iterations. 
+I'm going to ask Claude to code most of the data extraction process, since I don't have much knowledge about that. When the data is in pure JSON, or .txt files, I'm going to check the quality of the web scrape by seeing if users/profs' comments/reviews are there. I'm expecting the agent will produce a MVP with test data in the beginning, since the scraping pipeline might have to fall back in the first few iterations. For course registration info, I have deployed a specific scraping pipeline that ensures the pdf get scraped correctly through tables.
 
-Each chunks will have metadata keys such as "professor", "course_code" and "rating" for RMP chunks; "semester", "course_code" for Course schedules and description. For most files, I will deploy recursive chunking to chunk each review/column/comment into one unique, non-overlapping chunk using the help of Claude Code and Cursor (with Claude Fable 5) for implementation. This is to ensure that each comments' content don't bleed into another comment's chunk. For Reddit threads and Course Descriptions, I decided to break down into multiple chunks per comment/description if they are too long, in order to save the context window for future LLM calls.
+Each chunks will have metadata keys such as "professor", "course_code" and "rating" for RMP chunks; "semester", "course_code" for Course schedules and description. For most files, I will deploy recursive chunking to chunk each review/column/comment into one unique, non-overlapping chunk using the help of Claude Code and Cursor (with Claude Fable 5) for implementation. This is to ensure that each comments' content don't bleed into another comment's chunk. For Reddit threads and Course Descriptions, I decided to break down into multiple chunks per comment/description if they are too long, in order to save the context window for future LLM calls. Each chunk will also have "src_file" as a course 
 
 **Milestone 4 — Embedding and retrieval:**
 For embeddings, I'm going to use all-MiniLM-L6-v2 to embed natural language to vectors that are stored in ChromaDb.
 
-For retrieval, I'm going to use the top 5 cosine simalrity scores, checking the distance in the retrieval process. I'm going to also print the retrived chunks to see its relevance and if it's information is enough to answer the question.
+For retrieval, I'm going to use the top 5 cosine simalrity scores, checking the distance in the retrieval process. I'm going to also print the retrived chunks to see its relevance and if it's information is enough to answer the question. 
+
+Instead of pasting user's queries in the string format like in the Lab, I decided to stick with encoding our query to a vector embedding, and then pass it into ChromaDb for a proper cosine similarity search. Without this encoding step, the retrieved chunks will not align perfectly since the internal encoding model ChromaDb is using is different than all-MiniLM-L6-v2 with L2 normalization. In order to deploy consine similarity search, vectors need to be in the same emboding space. 
+"If we then queried with query_texts, Chroma would embed the query with its own pipeline — possibly a different model build, different pooling, different normalization behavior. Two pipelines that are "both MiniLM" can still produce vectors that don't align perfectly, which silently degrades retrieval quality. No error, just worse rankings — the worst kind of bug to track down." - Claude Fable 5 via Cursor
 
 **Milestone 5 — Generation and interface:**
 I'm going to prompt engineer so that the LLM can ground the chunk's informations to answering the query without outside knowledge. I'm going to ask CoPilot for possible prompt exploits and injections.
